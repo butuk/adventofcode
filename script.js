@@ -8,12 +8,18 @@ function defineDirectives(str) {
   const thirdDirective = Number(comandsArr[1].split(' to ')[1]);
   return [firstDirective, secondDirective, thirdDirective];
 }
+
 function makeChanges(directiveArr){
   let [amount, initialPlace, targetPlace] = directiveArr;
-  for(let i=0; i<amount; i++) {
-    stack.piles[targetPlace].push(stack.piles[initialPlace].pop());
-  }
+    stack.piles[targetPlace].push(...stack.piles[initialPlace].splice(-amount,amount));
 };
+
+console.log(input.array[3]);
+console.log(stack.piles[6]);
+console.log(stack.piles[5]);
+console.log(stack.piles[6]);
+console.log(stack.piles[5]);
+
 for(let i = 0; i < input.array.length; i++) {
   makeChanges(defineDirectives(input.array[i]));   
 };
@@ -23,3 +29,4 @@ for (let j = 1; j < stack.piles.length; j++) {
 };
 
 console.log(resultArr.join(''));
+
