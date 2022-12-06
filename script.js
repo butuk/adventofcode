@@ -1,64 +1,12 @@
 import {input} from '/input.js';
+import {index} from '/index.js';
 function divideWord(str) {
   let secondPartFirstLetterIdext = (str.length)/2;
   let firstWord = str.slice(0,secondPartFirstLetterIdext);
   let secondWord = str.slice(secondPartFirstLetterIdext, str.length);
   return [firstWord, secondWord];
 }
-const index = {
-  'a': 1,
-  'b': 2,
-  'c': 3,
-  'd': 4,
-  'e': 5,
-  'f': 6,
-  'g': 7,
-  'h': 8,
-  'i': 9,
-  'j': 10,
-  'k': 11,
-  'l': 12,
-  'm': 13,
-  'n': 14,
-  'o': 15,
-  'p': 16,
-  'q': 17,
-  'r': 18,
-  's': 19,
-  't': 20,
-  'u': 21,
-  'v': 22,
-  'w': 23,
-  'x': 24,
-  'y': 25,
-  'z': 26,
-  'A': 27,
-  'B': 28,
-  'C': 29,
-  'D': 30,
-  'E': 31,
-  'F': 32,
-  'G': 33,
-  'H': 34,
-  'I': 35,
-  'J': 36,
-  'K': 37,
-  'L': 38,
-  'M': 39,
-  'N': 40,
-  'O': 41,
-  'P': 42,
-  'Q': 43,
-  'R': 44,
-  'S': 45,
-  'T': 46,
-  'U': 47,
-  'V': 48,
-  'W': 49,
-  'X': 50,
-  'Y': 51,
-  'Z': 52,
-}
+
 function findSimilarLetter(twoWords) {
   let firstSet = new Set(twoWords[0]);
   let secondSet = new Set(twoWords[1]);
@@ -70,12 +18,50 @@ function findSimilarLetter(twoWords) {
   };
   return index[result];
 }
+
 let sumArr = [];
+
 input.array.forEach(word => {
   sumArr.push(findSimilarLetter(divideWord(word)));
 })
-console.log(sumArr.reduce((sum, next) => sum + next, 0));
-  
+
+//console.log(sumArr.reduce((sum, next) => sum + next, 0));
+
+function makeSet(str) {
+  return new Set(str.split(''));
+}
+
+function findLetter(set1, set2, set3) {
+  let array = Array.from(set1.values());
+  let resultletter;
+  array.forEach(letter => {
+    if(set2.has(letter) && set3.has(letter)) {
+      resultletter =  index[letter];
+    }
+  })
+  return resultletter;
+}
+let resultArray = [];
+
+function findInGroups(array) {
+  let i = 0;
+  while(i < array.length-2) {
+    let one = makeSet(array[i]);
+    let two = makeSet(array[i+1]);
+    let three = makeSet(array[i+2]);
+    resultArray.push(findLetter(one, two, three));
+    i += 3;
+  }
+  return resultArray.reduce((sum, cur) => sum + cur);
+}
+
+let test1 = makeSet('adfasdfagarg');
+let test2 = makeSet('aGJJTHREDDJ');
+let test3 = makeSet('ghrhljghdja');
+//console.log(findLetter(test1, test2, test3));
+
+console.log(findInGroups(input.array));
+
 
 
 
