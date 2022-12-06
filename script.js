@@ -3,13 +3,13 @@ let input = 'djhjvjggdzznllvvrvggscgscsrrffgvfvllfclcrchhwzhzqqlhqhffsdsmmcffngg
 console.log(input[3]);
 
 function findASequence(str) {
-  for(let i = 0; i < str.length-3; i++) {
+  for(let i = 0; i < str.length-13; i++) {
     let array = [];
-    for(let j=i; j<i+4; j++) {
+    for(let j=i; j<i+14; j++) {
       array.push(str[j]);
     }
     let set = new Set(array);
-    if(set.size == 4) return i+4;
+    if(set.size == 14) return i+14;
   }
 }
 console.log(findASequence(input));
